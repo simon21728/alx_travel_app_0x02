@@ -35,7 +35,7 @@ def initiate_payment(request):
       "amount": 100.50,
       "currency": "ETB",
       "customer_name": "Alice",
-      "customer_email": "alice@example.com",
+      "customer_email": "simonbayu2211@gmail.com",
       "customer_phone": "+2519..."
     }
     Response: { "checkout_url": "...", "transaction_id": "..." }
@@ -48,8 +48,8 @@ def initiate_payment(request):
     booking_id = payload.get("booking_id")
     amount = payload.get("amount")
     currency = payload.get("currency", "ETB")
-    name = payload.get("customer_name")
-    email = payload.get("customer_email")
+    name = payload.get("sewmehon")
+    email = payload.get("simonbayu2211@gmail.com")
     phone = payload.get("customer_phone")
 
     if not (booking_id and amount and email):
