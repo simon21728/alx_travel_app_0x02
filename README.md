@@ -13,3 +13,4 @@ pip install -r requirements.txt
 sudo service rabbitmq-server start
 celery -A alx_travel_app worker -l info
 python manage.py runserver
+rrrrrr
