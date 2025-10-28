@@ -3,6 +3,20 @@ from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Payment
+from django.utils import timezone
+
+@shared_task
+def send_booking_confirmation_email(user_email, booking_id):
+    """
+    Sends booking confirmation email asynchronously
+    """
+    subject = "Booking Confirmation"
+    message = f"Your booking #{booking_id} has been successfully confirmed on {timezone.now().strftime('%Y-%m-%d %H:%M:%S')}."
+    from_email = "noreply@alxtravelapp.com"
+    recipient_list = [user_email]
+
+    send_mail(subject, message, from_email, recipient_list)
+    return f"Sent booking confirmation email to {user_email}"
 
 @shared_task
 def send_payment_confirmation_email(payment_id):

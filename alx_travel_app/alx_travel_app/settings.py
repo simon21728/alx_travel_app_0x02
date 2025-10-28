@@ -106,3 +106,15 @@ CHAPA_BASE_URL = env("CHAPA_BASE_URL", default="https://api.chapa.co")
 
 # ---------------- Celery configuration ----------------
 CELERY_RESULT_BACKEND = "django-db"
+
+# Celery Configuration
+CELERY_BROKER_URL = 'amqp://localhost'  # RabbitMQ default
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+# Email backend (for local testing, logs emails to console)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@alxtravelapp.com'
