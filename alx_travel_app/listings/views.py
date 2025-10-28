@@ -31,6 +31,22 @@ class BookingViewSet(viewsets.ModelViewSet):
             # Trigger Celery background email task
             send_booking_confirmation_email.delay(user_email, booking.id)
 
+from rest_framework import viewsets
+from .serializers import BookingSerializer
+from .tasks import send_booking_confirmation_email
+
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+
+    def perform_create(self, serializer):
+        booking = serializer.save()
+        user_email = booking.user.email if booking.user else None
+
+        if user_email:
+            # Trigger Celery background email task
+            send_booking_confirmation_email.delay(user_email, booking.id)
+
 CHAPA_BASE = getattr(settings, 'CHAPA_BASE_URL', 'https://api.chapa.co')
 CHAPA_SECRET = getattr(settings, 'CHAPA_SECRET_KEY', None)
 
